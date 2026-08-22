@@ -45,40 +45,78 @@ textarea.textarea:focus {
 
 /* ── Jalali DatePicker overrides ── */
 .jalali-wrapper {
-  /* Cell size for the calendar grid */
   --pdp-cell-size: 38px;
   font-family: inherit;
   direction: rtl;
 }
 
-/* Ensure the calendar uses a proper grid layout */
+/* Masked input: right-align Persian date text */
+.jalali-wrapper input[type='text'] {
+  direction: rtl !important;
+  text-align: right !important;
+  font-family: inherit !important;
+  letter-spacing: 0.02em;
+}
+
+/* Calendar popover container */
+.jalali-wrapper [role='dialog'],
+.jalali-wrapper [class*='calendar'] {
+  direction: rtl;
+}
+
+/* Weekday headers */
+.jalali-wrapper [role='row'] {
+  display: grid !important;
+  grid-template-columns: repeat(7, var(--pdp-cell-size)) !important;
+  gap: 2px;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+/* Calendar day grid */
 .jalali-wrapper [role='grid'] {
   display: grid !important;
   grid-template-columns: repeat(7, var(--pdp-cell-size)) !important;
-  gap: 3px !important;
+  gap: 2px !important;
   justify-content: center;
 }
 
-/* Prevent DaisyUI btn class from breaking calendar cell layout */
-.jalali-wrapper button {
-  min-height: unset !important;
-  height: var(--pdp-cell-size) !important;
+/* Every button inside the calendar: force cell sizing */
+.jalali-wrapper [role='grid'] button,
+.jalali-wrapper [role='gridcell'] {
+  all: unset !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   width: var(--pdp-cell-size) !important;
-  padding: 0 !important;
-  border: none !important;
+  height: var(--pdp-cell-size) !important;
+  min-width: var(--pdp-cell-size) !important;
+  min-height: var(--pdp-cell-size) !important;
   border-radius: 8px !important;
   font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+  color: var(--color-base-content);
+  background: transparent;
 }
 
-.jalali-wrapper button[aria-selected='true'] {
+/* Hover */
+.jalali-wrapper [role='gridcell']:hover:not([disabled]):not([aria-selected='true']) {
+  background-color: oklch(var(--p) / 0.12) !important;
+}
+
+/* Selected */
+.jalali-wrapper [role='gridcell'][aria-selected='true'] {
   background-color: var(--color-primary) !important;
   color: var(--color-primary-content) !important;
   font-weight: 700 !important;
 }
 
-.jalali-wrapper button:hover:not([disabled]):not([aria-selected='true']) {
-  background-color: color-mix(in oklch, var(--color-primary) 15%, transparent) !important;
-  color: var(--color-base-content) !important;
+/* Disabled */
+.jalali-wrapper [role='gridcell'][disabled] {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
 }
 
 /* Ticket-style dashed separators */
