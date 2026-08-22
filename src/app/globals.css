@@ -43,6 +43,44 @@ textarea.textarea:focus {
   outline: none !important;
 }
 
+/* ── Jalali DatePicker overrides ── */
+.jalali-wrapper {
+  /* Cell size for the calendar grid */
+  --pdp-cell-size: 38px;
+  font-family: inherit;
+  direction: rtl;
+}
+
+/* Ensure the calendar uses a proper grid layout */
+.jalali-wrapper [role='grid'] {
+  display: grid !important;
+  grid-template-columns: repeat(7, var(--pdp-cell-size)) !important;
+  gap: 3px !important;
+  justify-content: center;
+}
+
+/* Prevent DaisyUI btn class from breaking calendar cell layout */
+.jalali-wrapper button {
+  min-height: unset !important;
+  height: var(--pdp-cell-size) !important;
+  width: var(--pdp-cell-size) !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-size: 0.85rem !important;
+}
+
+.jalali-wrapper button[aria-selected='true'] {
+  background-color: oklch(var(--p)) !important;
+  color: oklch(var(--pc)) !important;
+  font-weight: 700 !important;
+}
+
+.jalali-wrapper button:hover:not([disabled]):not([aria-selected='true']) {
+  background-color: oklch(var(--p) / 0.15) !important;
+  color: oklch(var(--bc)) !important;
+}
+
 /* Ticket-style dashed separators */
 .ticket-dash {
   background-image: linear-gradient(
