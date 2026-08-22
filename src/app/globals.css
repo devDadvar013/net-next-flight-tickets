@@ -48,14 +48,47 @@ textarea.textarea:focus {
   --pdp-cell-size: 38px;
   font-family: inherit;
   direction: rtl;
+  position: relative;
 }
 
-/* Masked input: right-align Persian date text */
+/* Calendar popover: open above the input */
+.jalali-wrapper [role='dialog'] {
+  position: absolute !important;
+  bottom: calc(100% + 4px) !important;
+  top: auto !important;
+  left: auto !important;
+  right: 0 !important;
+  z-index: 50 !important;
+  direction: rtl;
+}
+
+/* Also target the calendar container if it uses a different selector */
+.jalali-wrapper > div:not(:first-child) {
+  position: absolute !important;
+  bottom: calc(100% + 4px) !important;
+  top: auto !important;
+  right: 0 !important;
+  left: auto !important;
+  z-index: 50 !important;
+}
+
+/* Masked input: right-align Persian date text + match DaisyUI select focus */
 .jalali-wrapper input[type='text'] {
   direction: rtl !important;
   text-align: right !important;
   font-family: inherit !important;
   letter-spacing: 0.02em;
+  border: 1px solid var(--color-base-300) !important;
+  background-color: var(--color-base-100) !important;
+  color: var(--color-base-content) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.jalali-wrapper input[type='text']:focus,
+.jalali-wrapper input[type='text']:focus-visible {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px oklch(var(--p) / 0.2) !important;
+  outline: none !important;
 }
 
 /* Calendar popover container */
@@ -104,6 +137,15 @@ textarea.textarea:focus {
 /* Hover */
 .jalali-wrapper [role='gridcell']:hover:not([disabled]):not([aria-selected='true']) {
   background-color: oklch(var(--p) / 0.12) !important;
+  color: var(--color-primary) !important;
+  transform: scale(1.08);
+  box-shadow: 0 2px 8px oklch(var(--p) / 0.2);
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.jalali-wrapper [role='gridcell']:active:not([disabled]) {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
 }
 
 /* Selected */
