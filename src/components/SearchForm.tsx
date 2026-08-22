@@ -208,7 +208,6 @@ export default function SearchForm({
               onChange={setDepartureDate}
               minDate={today}
               placeholder="تاریخ رفت"
-              label="تاریخ رفت"
             />
           </div>
 
@@ -222,7 +221,6 @@ export default function SearchForm({
                 onChange={setReturnDateValue}
                 minDate={today}
                 placeholder="تاریخ برگشت"
-                label="تاریخ برگشت"
               />
             </div>
           )}

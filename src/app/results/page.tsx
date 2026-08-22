@@ -84,12 +84,18 @@ export default function ResultsPage() {
     [flights]
   );
 
-  // Clamp maxPrice when flights change
+  // Reset maxPrice when flights change (keeps it in sync with actual data)
   useEffect(() => {
-    if (filters.maxPrice > priceCap) {
-      setFilters((f) => ({ ...f, maxPrice: priceCap }));
+    if (priceCap > 0) {
+      setFilters((f) => {
+        // If maxPrice is at 0 (from empty flights) or exceeds new cap, reset it
+        if (f.maxPrice === 0 || f.maxPrice > priceCap) {
+          return { ...f, maxPrice: priceCap };
+        }
+        return f;
+      });
     }
-  }, [priceCap, filters.maxPrice]);
+  }, [priceCap]);
 
   // Filtered + sorted
   const filtered = useMemo(
