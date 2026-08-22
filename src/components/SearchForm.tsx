@@ -1,16 +1,28 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchStore, useFlightStore } from "@/lib/store";
 import { CabinClass, SearchQuery } from "@/types/flight";
 import Dropdown, { DropdownOption } from "./Dropdown";
+import PersianDatePicker from "./PersianDatePicker";
 
-function toIsoDate(ms: number): string {
-  const d = new Date(ms);
+function dateToIso(d: Date): string {
   const m = String(d.getMonth() + 1).padStart(2, "0");
   const day = String(d.getDate()).padStart(2, "0");
   return `${d.getFullYear()}-${m}-${day}`;
+}
+
+function isoToDate(iso: string | undefined): Date | null {
+  if (!iso) return null;
+  const d = new Date(iso + "T00:00:00");
+  return isNaN(d.getTime()) ? null : d;
+}
+
+function addDays(d: Date, days: number): Date {
+  const r = new Date(d);
+  r.setDate(r.getDate() + days);
+  return r;
 }
 
 export default function SearchForm({
@@ -25,8 +37,8 @@ export default function SearchForm({
   const fetchAirports = useFlightStore((s) => s.fetchAirports);
 
   const today = new Date();
-  const tomorrow = toIsoDate(today.getTime() + 86_400_000);
-  const dayAfter = toIsoDate(today.getTime() + 2 * 86_400_000);
+  const tomorrow = addDays(today, 1);
+  const dayAfter = addDays(today, 2);
 
   const airportOptions: DropdownOption[] = airports.map((a) => ({
     label: `${a.city} — ${a.name}`,
@@ -48,8 +60,12 @@ export default function SearchForm({
   );
   const [from, setFrom] = useState(prevQuery?.from ?? "THR");
   const [to, setTo] = useState(prevQuery?.to ?? "MHD");
-  const [date, setDate] = useState(prevQuery?.date ?? tomorrow);
-  const [returnDate, setReturnDate] = useState(prevQuery?.returnDate ?? dayAfter);
+  const [departureDate, setDepartureDate] = useState<Date | null>(
+    isoToDate(prevQuery?.date) ?? tomorrow
+  );
+  const [returnDateValue, setReturnDateValue] = useState<Date | null>(
+    isoToDate(prevQuery?.returnDate) ?? dayAfter
+  );
   const [passengers, setPassengers] = useState(prevQuery?.passengers ?? 1);
   const [cabinClass, setCabinClass] = useState<CabinClass>(prevQuery?.cabinClass ?? "اکونومی");
   const [submitted, setSubmitted] = useState(false);
@@ -63,6 +79,9 @@ export default function SearchForm({
     setTo(from);
     setSubmitted(false);
   };
+
+  const date = departureDate ? dateToIso(departureDate) : "";
+  const returnDate = returnDateValue ? dateToIso(returnDateValue) : "";
 
   const sameCities = from === to;
   const returnDateMissing = tripType === "roundtrip" && !returnDate;
@@ -180,35 +199,35 @@ export default function SearchForm({
 
         {/* Dates + passengers */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <label className="form-control w-full">
+          <div className="form-control w-full">
             <div className="label py-0 pb-1">
               <span className="label-text text-sm">تاریخ رفت</span>
             </div>
-            <input
-              type="date"
-              value={date}
-              min={tomorrow}
-              onChange={(e) => setDate(e.target.value)}
-              className="input input-bordered w-full"
+            <PersianDatePicker
+              value={departureDate}
+              onChange={setDepartureDate}
+              minDate={today}
+              placeholder="تاریخ رفت"
+              label="تاریخ رفت"
             />
-          </label>
+          </div>
 
           {tripType === "roundtrip" && (
-            <label className="form-control w-full">
+            <div className="form-control w-full">
               <div className="label py-0 pb-1">
                 <span className="label-text text-sm">تاریخ برگشت</span>
               </div>
-              <input
-                type="date"
-                value={returnDate}
-                min={tomorrow}
-                onChange={(e) => setReturnDate(e.target.value)}
-                className="input input-bordered w-full"
+              <PersianDatePicker
+                value={returnDateValue}
+                onChange={setReturnDateValue}
+                minDate={today}
+                placeholder="تاریخ برگشت"
+                label="تاریخ برگشت"
               />
-            </label>
+            </div>
           )}
 
-          <label
+          <div
             className={`form-control w-full ${tripType !== "roundtrip" ? "sm:col-span-2" : ""}`}
           >
             <div className="label py-0 pb-1">
@@ -220,7 +239,7 @@ export default function SearchForm({
               onChange={(v) => setPassengers(v as number)}
               placeholder="تعداد مسافر"
             />
-          </label>
+          </div>
         </div>
 
         {/* Validation feedback */}
