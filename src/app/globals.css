@@ -71,14 +71,14 @@ textarea.textarea:focus {
 }
 
 .jalali-wrapper button[aria-selected='true'] {
-  background-color: oklch(var(--p)) !important;
-  color: oklch(var(--pc)) !important;
+  background-color: var(--color-primary) !important;
+  color: var(--color-primary-content) !important;
   font-weight: 700 !important;
 }
 
 .jalali-wrapper button:hover:not([disabled]):not([aria-selected='true']) {
-  background-color: oklch(var(--p) / 0.15) !important;
-  color: oklch(var(--bc)) !important;
+  background-color: color-mix(in oklch, var(--color-primary) 15%, transparent) !important;
+  color: var(--color-base-content) !important;
 }
 
 /* Ticket-style dashed separators */
