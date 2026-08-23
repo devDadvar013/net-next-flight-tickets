@@ -99,7 +99,8 @@ textarea.textarea:focus {
 }
 
 /* Clear (✕) button: center vertically and push down a bit */
-.jalali-wrapper button[aria-label='Clear value'] {
+.jalali-wrapper button[aria-label='Clear value'],
+.jalali-wrapper button[aria-label='پاک کنی'] {
   top: 14px !important;
   transform: none !important;
 }
