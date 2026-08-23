@@ -92,6 +92,12 @@ textarea.textarea:focus {
   outline: none !important;
 }
 
+/* Clear (✕) button: center vertically and push down a bit */
+.jalali-wrapper button[aria-label='Clear value'] {
+  top: 50% !important;
+  transform: translateY(-35%) !important;
+}
+
 /* Weekday headers */
 [role='region'][aria-label='تقویم شمسی'] [role='row'] {
   display: grid !important;
