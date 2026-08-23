@@ -51,7 +51,14 @@ textarea.textarea:focus {
   position: relative;
 }
 
-/* Calendar is moved to document.body by JS for proper overlay positioning */
+/* Calendar uses position:fixed (set by JS) to break out of any overflow:hidden ancestors */
+[role='region'][aria-label='تقویم شمسی'] {
+  position: fixed !important;
+  z-index: 10000 !important;
+  direction: rtl;
+  --pdp-cell-size: 38px;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+}
 
 /* Masked input: right-align Persian date text + match DaisyUI select focus */
 .jalali-wrapper input[type='text'] {
