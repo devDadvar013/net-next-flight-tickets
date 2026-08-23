@@ -76,8 +76,13 @@ textarea.textarea:focus {
   background-color: var(--color-base-100) !important;
   color: var(--color-base-content) !important;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  width: 100%;
+  width: 100% !important;
   box-sizing: border-box;
+}
+
+.jalali-wrapper > div,
+.jalali-wrapper > div > div {
+  width: 100% !important;
 }
 
 .jalali-wrapper input[type='text']:focus,
