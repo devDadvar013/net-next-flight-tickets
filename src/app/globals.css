@@ -51,22 +51,7 @@ textarea.textarea:focus {
   position: relative;
 }
 
-/* Calendar popover: open above the input */
-.jalali-wrapper [role='dialog'] {
-  position: fixed !important;
-  top: auto !important;
-  bottom: auto !important;
-  left: auto !important;
-  right: auto !important;
-  z-index: 10000 !important;
-  direction: rtl;
-}
-
-/* Keep the calendar above every form section and prevent parent layout rules from affecting it. */
-.jalali-wrapper [role='dialog'],
-.jalali-wrapper [role='dialog'] * {
-  box-sizing: border-box;
-}
+/* Calendar is moved to document.body by JS for proper overlay positioning */
 
 /* Masked input: right-align Persian date text + match DaisyUI select focus */
 .jalali-wrapper input[type='text'] {
@@ -87,14 +72,14 @@ textarea.textarea:focus {
   outline: none !important;
 }
 
-/* Calendar popover container */
-.jalali-wrapper [role='dialog'],
-.jalali-wrapper [class*='calendar'] {
+/* Calendar popover container (moved to body by JS) */
+[role='region'][aria-label='تقویم شمسی'] {
   direction: rtl;
+  --pdp-cell-size: 38px;
 }
 
 /* Weekday headers */
-.jalali-wrapper [role='row'] {
+[role='region'][aria-label='تقویم شمسی'] [role='row'] {
   display: grid !important;
   grid-template-columns: repeat(7, var(--pdp-cell-size)) !important;
   gap: 2px;
@@ -103,58 +88,21 @@ textarea.textarea:focus {
 }
 
 /* Calendar day grid */
-.jalali-wrapper [role='grid'] {
+[role='region'][aria-label='تقویم شمسی'] [role='grid'] {
   display: grid !important;
   grid-template-columns: repeat(7, var(--pdp-cell-size)) !important;
   gap: 2px !important;
   justify-content: center;
 }
 
-/* Every button inside the calendar: force cell sizing */
-.jalali-wrapper [role='grid'] button,
-.jalali-wrapper [role='gridcell'] {
-  all: unset !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: var(--pdp-cell-size) !important;
-  height: var(--pdp-cell-size) !important;
-  min-width: var(--pdp-cell-size) !important;
-  min-height: var(--pdp-cell-size) !important;
-  border-radius: 8px !important;
-  font-size: 0.85rem !important;
-  font-weight: 500 !important;
-  cursor: pointer;
-  transition: background-color 0.15s, color 0.15s;
-  color: var(--color-base-content);
-  background: transparent;
-}
-
-/* Hover */
-.jalali-wrapper [role='gridcell']:hover:not([disabled]):not([aria-selected='true']) {
-  background-color: oklch(var(--p) / 0.12) !important;
-  color: var(--color-primary) !important;
-  transform: scale(1.08);
-  box-shadow: 0 2px 8px oklch(var(--p) / 0.2);
-  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.jalali-wrapper [role='gridcell']:active:not([disabled]) {
-  transform: scale(0.95);
-  transition: transform 0.1s ease;
+/* Hover on day cells */
+[role='region'][aria-label='تقویم شمسی'] [role='gridcell']:hover:not([disabled]):not([aria-selected='true']) {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Selected */
-.jalali-wrapper [role='gridcell'][aria-selected='true'] {
-  background-color: var(--color-primary) !important;
-  color: var(--color-primary-content) !important;
+[role='region'][aria-label='تقویم شمسی'] [role='gridcell'][aria-selected='true'] {
   font-weight: 700 !important;
-}
-
-/* Disabled */
-.jalali-wrapper [role='gridcell'][disabled] {
-  opacity: 0.3 !important;
-  cursor: not-allowed !important;
 }
 
 /* Ticket-style dashed separators */
