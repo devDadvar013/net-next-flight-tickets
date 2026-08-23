@@ -87,9 +87,9 @@ textarea.textarea:focus {
 .jalali-wrapper > div:not([role]) {
   width: max-content !important;
 }
-.jalali-wrapper > div:not([role]) > div {
+/* .jalali-wrapper > div:not([role]) > div {
   width: 100% !important;
-}
+} */
 
 .jalali-wrapper input[type='text']:focus,
 .jalali-wrapper input[type='text']:focus-visible {
