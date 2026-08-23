@@ -49,6 +49,8 @@ textarea.textarea:focus {
   font-family: inherit;
   direction: rtl;
   position: relative;
+  display: block;
+  width: 100%;
 }
 
 /* Calendar uses position:fixed (set by JS) to break out of any overflow:hidden ancestors */
@@ -74,7 +76,7 @@ textarea.textarea:focus {
   background-color: var(--color-base-100) !important;
   color: var(--color-base-content) !important;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  width: auto;
+  width: 100%;
   box-sizing: border-box;
 }
 
