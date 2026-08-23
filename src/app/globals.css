@@ -45,7 +45,7 @@ textarea.textarea:focus {
 
 /* ── Jalali DatePicker overrides ── */
 .jalali-wrapper {
-  --pdp-cell-size: 38px;
+  --pdp-cell-size: 34px;
   font-family: inherit;
   direction: rtl;
   position: relative;
@@ -58,8 +58,10 @@ textarea.textarea:focus {
   position: fixed !important;
   z-index: 10000 !important;
   direction: rtl;
-  --pdp-cell-size: 38px;
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+  --pdp-cell-size: 34px;
+  padding: 8px !important;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.15);
+  border-radius: 10px !important;
 }
 
 /* Masked input: right-align Persian date text + match DaisyUI select size/focus */
@@ -80,8 +82,11 @@ textarea.textarea:focus {
   box-sizing: border-box;
 }
 
-.jalali-wrapper > div,
-.jalali-wrapper > div > div {
+/* Only make the input trigger full-width, not the calendar */
+.jalali-wrapper > div:not([role]) {
+  width: max-content !important;
+}
+.jalali-wrapper > div:not([role]) > div {
   width: 100% !important;
 }
 
