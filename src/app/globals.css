@@ -60,16 +60,22 @@ textarea.textarea:focus {
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
 }
 
-/* Masked input: right-align Persian date text + match DaisyUI select focus */
+/* Masked input: right-align Persian date text + match DaisyUI select size/focus */
 .jalali-wrapper input[type='text'] {
   direction: rtl !important;
   text-align: right !important;
   font-family: inherit !important;
   letter-spacing: 0.02em;
+  min-height: 3rem !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.875rem !important;
   border: 1px solid var(--color-base-300) !important;
+  border-radius: var(--rounded-box, 0.5rem) !important;
   background-color: var(--color-base-100) !important;
   color: var(--color-base-content) !important;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .jalali-wrapper input[type='text']:focus,
@@ -77,12 +83,6 @@ textarea.textarea:focus {
   border-color: var(--color-primary) !important;
   box-shadow: 0 0 0 2px oklch(var(--p) / 0.2) !important;
   outline: none !important;
-}
-
-/* Calendar popover container (moved to body by JS) */
-[role='region'][aria-label='تقویم شمسی'] {
-  direction: rtl;
-  --pdp-cell-size: 38px;
 }
 
 /* Weekday headers */
