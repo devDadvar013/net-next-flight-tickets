@@ -96,10 +96,7 @@ textarea.textarea:focus {
   box-sizing: border-box;
 }
 
-/* Only make the input trigger full-width, not the calendar */
-.jalali-wrapper > div:not([role]) {
-  width: max-content !important;
-}
+
 /* .jalali-wrapper > div:not([role]) > div {
   width: 100% !important;
 } */
