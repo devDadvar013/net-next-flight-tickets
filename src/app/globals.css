@@ -60,6 +60,7 @@ textarea.textarea:focus {
   direction: rtl;
   --pdp-cell-size: 34px;
   padding: 8px !important;
+  width: max-content !important;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.15);
   border-radius: 10px !important;
 }
