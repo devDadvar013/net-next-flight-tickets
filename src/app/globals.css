@@ -53,6 +53,19 @@ textarea.textarea:focus {
   width: 100%;
 }
 
+.jalali-wrapper {
+  --pdp-cell-size: 34px;
+  font-family: inherit;
+  direction: rtl;
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.jalali-wrapper > div{
+  width: 100% !important;
+}
+
 /* Calendar uses position:fixed (set by JS) to break out of any overflow:hidden ancestors */
 [role='region'][aria-label='تقویم شمسی'] {
   position: fixed !important;
